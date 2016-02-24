@@ -68,6 +68,7 @@ public class Global {
 	
 	/**
 	 * 获取配置
+	 * 把配置读取到内存map中
 	 * @see ${fns:getConfig('adminPath')}
 	 */
 	public static String getConfig(String key) {
