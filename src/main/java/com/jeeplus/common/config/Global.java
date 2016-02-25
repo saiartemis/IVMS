@@ -123,6 +123,7 @@ public class Global {
 	 */
 	public static Object getConst(String field) {
 		try {
+			//java.lang.Class.getField()返回一个Field对象，它反映此Class对象所表示的类或接口的指定公共成员字段
 			return Global.class.getField(field).get(null);
 		} catch (Exception e) {
 			// 异常代表无配置，这里什么也不做
