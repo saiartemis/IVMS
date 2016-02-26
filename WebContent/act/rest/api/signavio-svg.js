@@ -1,4 +1,4 @@
-(function(){var aa=function(ba){if(!ba){throw new Error("The Signavio Mashup API needs a configuration.");}
+(function(){var aa=function(ba){if(!ba){throw new Error("The Signavio Mashup API needs a configuration."); }
 if("string"==typeof ba.element){ba.element=document.getElementById(ba.element);}
 if("string"==typeof ba.server){this.server=ba.server;}
 this.config=ba;this.init();};aa.prototype={server:"http://academic.signavio.com",init:function(){this.writeContent(this.setupIFrame());},onLoaded:function(){this.Ext=this.frame.Ext;this.ORYX=this.frame.ORYX;this.Ajax=this.frame.Ajax;this.$A=this.frame.$A;this.Template=this.frame.Template;this.Ext.data.HttpProxy.prototype.load=function(){};this.setupEditor();},onRendered:function(){var ca=this.editor.getCanvas(),size=this.getShapeSize(),zoom=this.config.zoom,me=this,width=this.document.offsetWidth,height=this.document.offsetHeight;if("undefined"==typeof zoom){zoom=100;if(this.config.overflowX=="fit"){zoom=Math.min(zoom,(width/(size.width()+20))*100);}
