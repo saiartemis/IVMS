@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2015-2020 <a href="http://www.jeeplus.org/">JeePlus</a> All rights reserved.
+ * Copyright &copy; 2015-2020 <a href="--版权信息--">JeePlus</a> All rights reserved.
  */
 package com.jeeplus.modules.sys.service;
 
