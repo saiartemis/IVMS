@@ -1,5 +1,5 @@
 /*!
- * Copyright &copy; 2012-2013 <a href="http://www.jeeplus.org/">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2013 <a href="--版权信息--">JeeSite</a> All rights reserved.
  */
 
 // 添加收藏
