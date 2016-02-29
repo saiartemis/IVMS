@@ -30,6 +30,8 @@ import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
 import com.jeeplus.modules.car.entity.Car;
 import com.jeeplus.modules.car.service.CarService;
+import com.jeeplus.modules.sys.entity.User;
+import com.jeeplus.modules.sys.utils.UserUtils;
 
 /**
  * 1Controller
@@ -61,6 +63,8 @@ public class CarController extends BaseController {
 	@RequiresPermissions("car:car:list")
 	@RequestMapping(value = {"list", ""})
 	public String list(Car car, HttpServletRequest request, HttpServletResponse response, Model model) {
+		User user = UserUtils.getUser();
+		car.setUser(user);
 		Page<Car> page = carService.findPage(new Page<Car>(request, response), car); 
 		model.addAttribute("page", page);
 		return "modules/car/carList";

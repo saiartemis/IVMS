@@ -10,7 +10,7 @@ import com.jeeplus.modules.home.entity.Person;
 /**
  * 家庭DAO接口
  * @author zx
- * @version 2016-02-25
+ * @version 2016-02-28
  */
 @MyBatisDao
 public interface PersonDao extends CrudDao<Person> {

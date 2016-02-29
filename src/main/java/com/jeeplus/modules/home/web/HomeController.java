@@ -34,7 +34,7 @@ import com.jeeplus.modules.home.service.HomeService;
 /**
  * 家庭Controller
  * @author zx
- * @version 2016-02-25
+ * @version 2016-02-28
  */
 @Controller
 @RequestMapping(value = "${adminPath}/home/home")

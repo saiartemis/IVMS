@@ -10,10 +10,13 @@
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
-		a.price AS "price"
+		a.price AS "price",
+		a.user_id AS "user.id",
+		b.login_name AS "user.name"
 	</sql>
 	
 	<sql id="carJoins">
+	LEFT JOIN sys_user b ON b.id = a.user_id
 	</sql>
     
 	<select id="get" resultType="Car">
@@ -30,7 +33,7 @@
 		FROM car a
 		<include refid="carJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = ${user.id} 
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">

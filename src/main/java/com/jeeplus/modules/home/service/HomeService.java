@@ -20,7 +20,7 @@ import com.jeeplus.modules.home.dao.PersonDao;
 /**
  * 家庭Service
  * @author zx
- * @version 2016-02-25
+ * @version 2016-02-28
  */
 @Service
 @Transactional(readOnly = true)
@@ -52,7 +52,7 @@ public class HomeService extends CrudService<HomeDao, Home> {
 			}
 			if (Person.DEL_FLAG_NORMAL.equals(person.getDelFlag())){
 				if (StringUtils.isBlank(person.getId())){
-					person.setHomeId(home);
+					person.setHome(home);
 					person.preInsert();
 					personDao.insert(person);
 				}else{

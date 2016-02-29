@@ -86,6 +86,7 @@
 				<th> <input type="checkbox" class="i-checks"></th>
 				<th  class="sort-column remarks">备注信息</th>
 				<th  class="sort-column price">价格</th>
+				<th  class="sort-column price">用户</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -98,6 +99,9 @@
 				</a></td>
 				<td>
 					${car.price}
+				</td>
+				<td>
+					${car.user.name}
 				</td>
 				<td>
 					<shiro:hasPermission name="car:car:view">

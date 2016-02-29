@@ -27,6 +27,7 @@ public class CarService extends CrudService<CarDao, Car> {
 	}
 	
 	public List<Car> findList(Car car) {
+		
 		return super.findList(car);
 	}
 	

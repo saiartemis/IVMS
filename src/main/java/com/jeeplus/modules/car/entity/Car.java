@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.jeeplus.common.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
+import com.jeeplus.modules.sys.entity.User;
 
 /**
  * 1Entity
@@ -17,7 +18,17 @@ public class Car extends DataEntity<Car> {
 	
 	private static final long serialVersionUID = 1L;
 	private String price;		// 价格
+	private User user;
 	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public Car() {
 		super();
 	}

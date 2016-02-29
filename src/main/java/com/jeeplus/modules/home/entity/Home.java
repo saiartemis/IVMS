@@ -13,7 +13,7 @@ import com.jeeplus.common.utils.excel.annotation.ExcelField;
 /**
  * 家庭Entity
  * @author zx
- * @version 2016-02-25
+ * @version 2016-02-28
  */
 public class Home extends DataEntity<Home> {
 	

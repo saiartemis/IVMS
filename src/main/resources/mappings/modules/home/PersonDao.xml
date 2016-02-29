@@ -10,7 +10,7 @@
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
-		a.home_id AS "homeId",
+		a.home_id AS "home.id",
 		a.name AS "name"
 	</sql>
 	
@@ -33,8 +33,8 @@
 		<include refid="personJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="homeId != null and homeId != ''">
-				AND a.home_id = #{homeId}
+			<if test="home != null and home.id != null and home.id != ''">
+				AND a.home_id = #{home.id}
 			</if>
 		</where>
 		<choose>
@@ -84,7 +84,7 @@
 			#{updateDate},
 			#{remarks},
 			#{delFlag},
-			#{homeId},
+			#{home.id},
 			#{name}
 		)
 	</insert>
@@ -94,7 +94,7 @@
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},
-			home_id = #{homeId},
+			home_id = #{home.id},
 			name = #{name}
 		WHERE id = #{id}
 	</update>
@@ -108,7 +108,7 @@
 				WHERE id = #{id}
 			</when>
 			<otherwise>
-				WHERE home_id = #{homeId}
+				WHERE home_id = #{home.id}
 			</otherwise>
 		</choose>
 	</update>
@@ -122,7 +122,7 @@
 				WHERE id = #{id}
 			</when>
 			<otherwise>
-				WHERE home_id = #{homeId}
+				WHERE home_id = #{home.id}
 			</otherwise>
 		</choose>
 	</update>
