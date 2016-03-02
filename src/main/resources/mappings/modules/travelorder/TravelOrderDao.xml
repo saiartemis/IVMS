@@ -12,7 +12,7 @@
 		a.del_flag AS "delFlag",
 		a.order_name AS "orderName",
 		a.start_address AS "startAddress.id",
-		//a.列名 AS 对象名（不写则对照完全相同的字段名）
+		<!-- a.列名 AS 对象名（不写则对照完全相同的字段名） -->
 		a.end_address AS "endAddress.id",
 		a.people_num AS "peopleNum",
 		a.start_time AS "startTime",

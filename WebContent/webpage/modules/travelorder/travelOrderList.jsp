@@ -124,11 +124,11 @@
 					${travelOrder.orderName}
 				</td>
 				<td>
-					${travelOrder.startAddress.id}
+					${travelOrder.startAddress.name}
 					
 				</td>
 				<td>
-					${travelOrder.endAddress}
+					${travelOrder.endAddress.name}
 				</td>
 				<td>
 					${travelOrder.peopleNum}
@@ -140,7 +140,12 @@
 					${travelOrder.endTime}
 				</td>
 				<td>
-					${travelOrder.status}
+					<c:if test="${travelOrder.status==1}">
+					在途
+					</c:if>
+					<c:if test="${travelOrder.status==0}">
+					完成
+					</c:if>
 				</td>
 				<td>
 					<shiro:hasPermission name="travelorder:travelOrder:view">
