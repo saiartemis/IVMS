@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import com.jeeplus.common.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
 import com.jeeplus.modules.sys.entity.User;
+import com.jeeplus.modules.travelorder.entity.TravelOrder;
 
 /**
  * 车辆信息管理Entity
@@ -17,11 +18,15 @@ import com.jeeplus.modules.sys.entity.User;
 public class Car extends DataEntity<Car> {
 	
 	private static final long serialVersionUID = 1L;
+	public static final String STATUS_ON_ROAD = "1";//在途状态
+	public static final String STATUS_FREE = "0";//空闲状态
+	public static final String STATUS_FIX = "3";//维修状态
 	private String carNo;		// 车牌号
 	private String driver;		// 司机
 	private String driverPhone;		// 司机电话
 	private String status;		// 车辆状态
 	private User user;
+	private TravelOrder travelOrder;
 	
 	public Car() {
 		super();
@@ -32,6 +37,15 @@ public class Car extends DataEntity<Car> {
 	}
 
 	
+	
+	public TravelOrder getTravelOrder() {
+		return travelOrder;
+	}
+
+	public void setTravelOrder(TravelOrder travelOrder) {
+		this.travelOrder = travelOrder;
+	}
+
 	public User getUser() {
 		return user;
 	}

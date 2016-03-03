@@ -14,11 +14,12 @@
 		a.driver AS "driver",
 		a.driver_phone AS "driverPhone",
 		a.status AS "status",
-		a.user_id AS "user.id"
+		a.user_id AS "user.id",
+	 	a.travel_order_id AS "travelOrder.id" <!-- 有多少字段写多少。不能少 -->
 	</sql>
 	
 	<sql id="carJoins">
-	LEFT JOIN sys_user b ON b.id = a.user_id
+	LEFT JOIN sys_user b ON b.id = a.user_id 
 	</sql>
     
 	<select id="get" resultType="Car">
@@ -28,6 +29,7 @@
 		<include refid="carJoins"/>
 		WHERE a.id = #{id}
 	</select>
+	
 	
 	<select id="findList" resultType="Car">
 		SELECT 
@@ -55,14 +57,24 @@
 			</otherwise>
 		</choose>
 	</select>
+	<!--后台传的是user对象，相当于把user的每个属性都传了进来-->
+	<select id="getFreeCarList" resultType="Car">
+	SELECT 
+			<include refid="carColumns"/>
+		FROM car a
+		<include refid="carJoins"/>
+	<where>
+	a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = #{id} and a.status = 0  
 	
+	</where>
+	</select>
 	<select id="findAllList" resultType="Car">
 		SELECT 
 			<include refid="carColumns"/>
 		FROM car a
 		<include refid="carJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = ${user.id} 
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">

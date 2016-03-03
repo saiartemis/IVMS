@@ -7,7 +7,9 @@ import org.hibernate.validator.constraints.Length;
 
 import com.jeeplus.common.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
+import com.jeeplus.modules.car.entity.Car;
 import com.jeeplus.modules.sys.entity.Area;
+import com.jeeplus.modules.sys.entity.User;
 
 /**
  * 旅行单管理Entity
@@ -20,14 +22,34 @@ public class TravelOrder extends DataEntity<TravelOrder> {
 	private String orderName;		// 订单名称
 //	private String startAddress;		// 出发地
 //	private String endAddress;		// 目的地
-	
+	public static final String STATUS_ON_ROAD = "1";
+	public static final String STATUS_FREE = "0";
 	private Area startAddress;
 	private Area endAddress;
 	private String peopleNum;		// 人数
 	private String startTime;		// 开始时间
 	private String endTime;		// 结束时间
 	private String status;		// 状态
+	private Car car;
+	private User user;
 	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
 	public TravelOrder() {
 		super();
 	}

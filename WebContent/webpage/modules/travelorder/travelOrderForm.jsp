@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/webpage/include/taglib.jsp"%>
+
 <html>
 <head>
 <title>旅行单管理</title>
@@ -65,18 +66,20 @@
 					</td>
 					<td class="width-15 active"><label class="pull-right">订单名称：</label></td>
 					<td class="width-35"><form:input path="orderName"
-							htmlEscape="false" maxlength="64" class="form-control " /></td>
+							htmlEscape="false" maxlength="64" class="form-control required" /></td>
 				</tr>
 				<tr>
 					<td class="width-15 active"><label class="pull-right">出发地：</label></td>
-					<td class="width-35"><sys:treeselect id="startAddress" name="startAddress.id"
-							value="${travelOrder.startAddress.id}" labelName="startAddress.name"
+					<td class="width-35"><sys:treeselect id="startAddress"
+							name="startAddress.id" value="${travelOrder.startAddress.id}"
+							labelName="startAddress.name"
 							labelValue="${travelOrder.startAddress.name}" title="区域"
 							url="/sys/area/treeData" cssClass="form-control "
 							allowClear="true" notAllowSelectParent="true" /></td>
 					<td class="width-15 active"><label class="pull-right">目的地：</label></td>
-					<td class="width-35"><sys:treeselect id="endAddress" name="endAddress.id"
-							value="${travelOrder.endAddress.id}" labelName="endAddress.name"
+					<td class="width-35"><sys:treeselect id="endAddress"
+							name="endAddress.id" value="${travelOrder.endAddress.id}"
+							labelName="endAddress.name"
 							labelValue="${travelOrder.endAddress.name}" title="区域"
 							url="/sys/area/treeData" cssClass="form-control "
 							allowClear="true" notAllowSelectParent="true" /></td>
@@ -101,8 +104,25 @@
 						value="<fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm:ss"/>" />
 					</td>
 					<td class="width-15 active"><label class="pull-right">状态：</label></td>
-					<td class="width-35"><form:input path="status"
-							htmlEscape="false" maxlength="64" class="form-control " /></td>
+					<td class="width-35"><form:select path="status" class="form-control ">
+					<form:option value="0" label="完成" />
+					<form:option value="1" label="在途" />
+					</form:select></td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">运营车辆：</label></td>
+					<td class="width-35"><form:select path="car.id"
+							class="form-control m-b">
+							<form:option value="${travelOrder.car.id }"
+								label="${travelOrder.car.carNo }" />
+							<c:forEach items="${carList}" var="car">
+							过滤重复代码
+								<c:if test="${car.id != travelOrder.car.id}">
+									<form:option value="${car.id }" label="${car.carNo }" />
+								</c:if>
+
+							</c:forEach>
+						</form:select></td>
 				</tr>
 			</tbody>
 		</table>

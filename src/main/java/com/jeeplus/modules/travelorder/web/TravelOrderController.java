@@ -28,6 +28,10 @@ import com.jeeplus.common.web.BaseController;
 import com.jeeplus.common.utils.StringUtils;
 import com.jeeplus.common.utils.excel.ExportExcel;
 import com.jeeplus.common.utils.excel.ImportExcel;
+import com.jeeplus.modules.car.entity.Car;
+import com.jeeplus.modules.car.service.CarService;
+import com.jeeplus.modules.sys.entity.User;
+import com.jeeplus.modules.sys.utils.UserUtils;
 import com.jeeplus.modules.travelorder.entity.TravelOrder;
 import com.jeeplus.modules.travelorder.service.TravelOrderService;
 
@@ -43,6 +47,8 @@ public class TravelOrderController extends BaseController {
 	@Autowired
 	private TravelOrderService travelOrderService;
 	
+	@Autowired
+	private CarService carService;
 	@ModelAttribute
 	public TravelOrder get(@RequestParam(required=false) String id) {
 		TravelOrder entity = null;
@@ -61,6 +67,7 @@ public class TravelOrderController extends BaseController {
 	@RequiresPermissions("travelorder:travelOrder:list")
 	@RequestMapping(value = {"list", ""})
 	public String list(TravelOrder travelOrder, HttpServletRequest request, HttpServletResponse response, Model model) {
+		travelOrder.setUser(UserUtils.getUser());
 		Page<TravelOrder> page = travelOrderService.findPage(new Page<TravelOrder>(request, response), travelOrder); 
 		model.addAttribute("page", page);
 		return "modules/travelorder/travelOrderList";
@@ -72,7 +79,10 @@ public class TravelOrderController extends BaseController {
 	@RequiresPermissions(value={"travelorder:travelOrder:view","travelorder:travelOrder:add","travelorder:travelOrder:edit"},logical=Logical.OR)
 	@RequestMapping(value = "form")
 	public String form(TravelOrder travelOrder, Model model) {
+		User user = UserUtils.getUser();
+		List<Car> carList = carService.getFreeCarList(user);
 		model.addAttribute("travelOrder", travelOrder);
+		model.addAttribute("carList", carList);
 		return "modules/travelorder/travelOrderForm";
 	}
 
@@ -85,6 +95,23 @@ public class TravelOrderController extends BaseController {
 		if (!beanValidator(model, travelOrder)){
 			return form(travelOrder, model);
 		}
+		travelOrder.setUser(UserUtils.getUser());
+		//更新car对象数据
+		if(travelOrder.getStatus().equals(TravelOrder.STATUS_ON_ROAD))
+		{
+			Car car = carService.get(travelOrder.getCar().getId());
+			car.setTravelOrder(travelOrder);
+			car.setStatus(Car.STATUS_ON_ROAD);
+			carService.update(car);
+		}
+		else if(travelOrder.getStatus().equals(TravelOrder.STATUS_FREE))
+		{
+			Car car = carService.get(travelOrder.getCar().getId());
+			car.setTravelOrder(null);
+			car.setStatus(Car.STATUS_FREE);
+			carService.update(car);
+		}
+		
 		travelOrderService.save(travelOrder);
 		addMessage(redirectAttributes, "保存旅行单成功");
 		return "redirect:"+Global.getAdminPath()+"/travelorder/travelOrder/?repage";
@@ -96,9 +123,17 @@ public class TravelOrderController extends BaseController {
 	@RequiresPermissions("travelorder:travelOrder:del")
 	@RequestMapping(value = "delete")
 	public String delete(TravelOrder travelOrder, RedirectAttributes redirectAttributes) {
-		travelOrderService.delete(travelOrder);
-		addMessage(redirectAttributes, "删除旅行单成功");
-		return "redirect:"+Global.getAdminPath()+"/travelorder/travelOrder/?repage";
+		if(travelOrder.getStatus().equals(TravelOrder.STATUS_ON_ROAD))
+		{
+			addMessage(redirectAttributes, "在途订单完成后才能删除");
+			return "redirect:"+Global.getAdminPath()+"/travelorder/travelOrder/?repage";
+		}
+		else {
+			travelOrderService.delete(travelOrder);
+			addMessage(redirectAttributes, "删除旅行单成功");
+			return "redirect:"+Global.getAdminPath()+"/travelorder/travelOrder/?repage";
+		}
+		
 	}
 	
 	/**

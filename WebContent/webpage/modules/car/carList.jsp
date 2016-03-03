@@ -51,7 +51,7 @@
 					<form:option value="" label="请选择车辆状态"/>
 					<form:option value="1" label="在途"/>
 						<form:option value="0" label="空闲"/>
-							<form:option value="3" label="维修"/>
+							<form:option value="2" label="维修"/>
 					<%-- <form:options items="${fns:getDictList('')}" itemLabel="label" itemValue="value" htmlEscape="false"/> --%>
 				</form:select>
 		 </div>	
@@ -125,7 +125,7 @@
 					<c:if test="${car.status==1}">
 					在途
 					</c:if>
-					<c:if test="${car.status==3}">
+					<c:if test="${car.status==2}">
 					维修
 					</c:if>
 				</td>

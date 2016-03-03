@@ -18,13 +18,19 @@
 		a.start_time AS "startTime",
 		a.end_time AS "endTime",
 		a.status AS "status",
+		a.car_id AS "car.id",
+		a.user_id AS "user.id",
 		startAddress.name AS "startAddress.name",
-		endAddress.name AS "endAddress.name"
+		endAddress.name AS "endAddress.name",
+		<!--返回对象里的每个值都要查询出来才能显示，不然为空。前台调用时 travelOrder.car.carNo注意对象格式-->
+		b.car_no AS "car.carNo"
 	</sql>
 	
 	<sql id="travelOrderJoins">
 		LEFT JOIN sys_area startAddress ON startAddress.id = a.start_address
 		LEFT JOIN sys_area endAddress ON endAddress.id = a.end_address
+		LEFT JOIN car b  ON b.id = a.car_id
+		LEFT JOIN sys_user c  ON c.id = a.user_id
 	</sql>
     
 	<select id="get" resultType="TravelOrder">
@@ -41,7 +47,7 @@
 		FROM travel_order a
 		<include refid="travelOrderJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = #{user.id} 
 			<if test="orderName != null and orderName != ''">
 				AND a.order_name LIKE 
 					<if test="dbName == 'oracle'">'%'||#{orderName}||'%'</if>
@@ -74,7 +80,7 @@
 		FROM travel_order a
 		<include refid="travelOrderJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = #{user.id} 
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -101,7 +107,9 @@
 			people_num,
 			start_time,
 			end_time,
-			status
+			status,
+			car_id,
+			user_id
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -111,12 +119,14 @@
 			#{remarks},
 			#{delFlag},
 			#{orderName},
-			#{startAddress.id},//startAddress是对象！这里传入的应该是startAddress的id
+			#{startAddress.id},<!-- startAddress是对象！这里传入的应该是startAddress的id -->
 			#{endAddress.id},
 			#{peopleNum},
 			#{startTime},
 			#{endTime},
-			#{status}
+			#{status},
+			#{car.id},
+			#{user.id}
 		)
 	</insert>
 	
@@ -131,7 +141,8 @@
 			people_num = #{peopleNum},
 			start_time = #{startTime},
 			end_time = #{endTime},
-			status = #{status}
+			status = #{status},
+			car_id = #{car.id}
 		WHERE id = #{id}
 	</update>
 	

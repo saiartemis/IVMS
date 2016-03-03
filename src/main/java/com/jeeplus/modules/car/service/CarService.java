@@ -12,6 +12,7 @@ import com.jeeplus.common.persistence.Page;
 import com.jeeplus.common.service.CrudService;
 import com.jeeplus.modules.car.entity.Car;
 import com.jeeplus.modules.car.dao.CarDao;
+import com.jeeplus.modules.sys.entity.User;
 
 /**
  * 车辆信息管理Service
@@ -40,8 +41,15 @@ public class CarService extends CrudService<CarDao, Car> {
 	}
 	
 	@Transactional(readOnly = false)
+	public void update(Car car) {
+		super.dao.update(car);
+	}
+	@Transactional(readOnly = false)
 	public void delete(Car car) {
 		super.delete(car);
 	}
 	
+	public List<Car> getFreeCarList(User user){
+		return super.dao.getFreeCarList(user);
+	}
 }
