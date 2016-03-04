@@ -89,6 +89,7 @@ public class CarController extends BaseController {
 		if (!beanValidator(model, car)){
 			return form(car, model);
 		}
+		car.setUser(UserUtils.getUser());
 		carService.save(car);
 		addMessage(redirectAttributes, "保存车辆信息成功");
 		return "redirect:"+Global.getAdminPath()+"/car/car/?repage";
@@ -100,9 +101,17 @@ public class CarController extends BaseController {
 	@RequiresPermissions("car:car:del")
 	@RequestMapping(value = "delete")
 	public String delete(Car car, RedirectAttributes redirectAttributes) {
-		carService.delete(car);
-		addMessage(redirectAttributes, "删除车辆信息成功");
-		return "redirect:"+Global.getAdminPath()+"/car/car/?repage";
+		if(car.getTravelOrder()!=null&&car.getTravelOrder().getId()!=null)
+		{
+			addMessage(redirectAttributes, "删除车辆信息失败");
+			return "redirect:"+Global.getAdminPath()+"/car/car/?repage";
+		}
+		else{
+			carService.delete(car);
+			addMessage(redirectAttributes, "删除车辆信息成功");
+			return "redirect:"+Global.getAdminPath()+"/car/car/?repage";
+		}
+		
 	}
 	
 	/**

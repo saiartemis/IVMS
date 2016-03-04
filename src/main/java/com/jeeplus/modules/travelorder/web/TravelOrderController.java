@@ -99,6 +99,7 @@ public class TravelOrderController extends BaseController {
 		//更新car对象数据
 		if(travelOrder.getStatus().equals(TravelOrder.STATUS_ON_ROAD))
 		{
+			travelOrderService.save(travelOrder);
 			Car car = carService.get(travelOrder.getCar().getId());
 			car.setTravelOrder(travelOrder);
 			car.setStatus(Car.STATUS_ON_ROAD);
@@ -106,13 +107,12 @@ public class TravelOrderController extends BaseController {
 		}
 		else if(travelOrder.getStatus().equals(TravelOrder.STATUS_FREE))
 		{
+			travelOrderService.save(travelOrder);
 			Car car = carService.get(travelOrder.getCar().getId());
 			car.setTravelOrder(null);
 			car.setStatus(Car.STATUS_FREE);
 			carService.update(car);
 		}
-		
-		travelOrderService.save(travelOrder);
 		addMessage(redirectAttributes, "保存旅行单成功");
 		return "redirect:"+Global.getAdminPath()+"/travelorder/travelOrder/?repage";
 	}
@@ -125,7 +125,7 @@ public class TravelOrderController extends BaseController {
 	public String delete(TravelOrder travelOrder, RedirectAttributes redirectAttributes) {
 		if(travelOrder.getStatus().equals(TravelOrder.STATUS_ON_ROAD))
 		{
-			addMessage(redirectAttributes, "在途订单完成后才能删除");
+			addMessage(redirectAttributes, "删除失败!在途订单完成后才能删除");
 			return "redirect:"+Global.getAdminPath()+"/travelorder/travelOrder/?repage";
 		}
 		else {

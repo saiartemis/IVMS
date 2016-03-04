@@ -98,7 +98,9 @@
 			car_no,
 			driver,
 			driver_phone,
-			status
+			status,
+			user_id,
+			travel_order_id
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -110,7 +112,9 @@
 			#{carNo},
 			#{driver},
 			#{driverPhone},
-			#{status}
+			#{status},
+			#{user.id},
+			#{travelOrder.id}
 		)
 	</insert>
 	
@@ -122,7 +126,8 @@
 			car_no = #{carNo},
 			driver = #{driver},
 			driver_phone = #{driverPhone},
-			status = #{status}
+			status = #{status},
+			travel_order_id = #{travelOrder.id}
 		WHERE id = #{id}
 	</update>
 	
