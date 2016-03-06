@@ -90,7 +90,17 @@ public class CarController extends BaseController {
 			return form(car, model);
 		}
 		car.setUser(UserUtils.getUser());
-		carService.save(car);
+		if(car.getIsNewRecord())
+		{
+			carService.save(car);
+		}
+		else {
+			if(car.getTravelOrder()!=null&&car.getTravelOrder().getId()!=null)
+			{
+				addMessage(redirectAttributes, "保存车辆信息失败！该车辆已绑定旅行单");
+				return "redirect:"+Global.getAdminPath()+"/car/car/?repage";
+			}
+		}
 		addMessage(redirectAttributes, "保存车辆信息成功");
 		return "redirect:"+Global.getAdminPath()+"/car/car/?repage";
 	}
@@ -103,7 +113,7 @@ public class CarController extends BaseController {
 	public String delete(Car car, RedirectAttributes redirectAttributes) {
 		if(car.getTravelOrder()!=null&&car.getTravelOrder().getId()!=null)
 		{
-			addMessage(redirectAttributes, "删除车辆信息失败");
+			addMessage(redirectAttributes, "删除车辆信息失败！在途车辆无法删除");
 			return "redirect:"+Global.getAdminPath()+"/car/car/?repage";
 		}
 		else{

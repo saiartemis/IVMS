@@ -104,7 +104,7 @@ public class RegisterController extends BaseController {
 		}
 		
 		//验证短信内容
-		if(!randomCode.equals(request.getSession().getServletContext().getAttribute(user.getMobile()))){
+		/*if(!randomCode.equals(request.getSession().getServletContext().getAttribute(user.getMobile()))){
 			// 如果是手机登录，则返回JSON字符串
 			if (mobileLogin){
 				AjaxJson j = new AjaxJson();
@@ -116,7 +116,7 @@ public class RegisterController extends BaseController {
 				addMessage(model, "手机验证码不正确!");
 				return register(user, model);
 			}
-		}
+		}*/
 		
 		
 		// 修正引用赋值问题，不知道为何，Company和Office引用的一个实例地址，修改了一个，另外一个跟着修改。
@@ -224,11 +224,12 @@ public class RegisterController extends BaseController {
 	@RequestMapping(value = "validateMobileCode")
 	public boolean validateMobileCode(HttpServletRequest request,
 			String mobile, String randomCode) {
-		if (randomCode.equals(request.getSession().getServletContext().getAttribute(mobile))) {
+		/*if (randomCode.equals(request.getSession().getServletContext().getAttribute(mobile))) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
+		return true;
 	}
 
 

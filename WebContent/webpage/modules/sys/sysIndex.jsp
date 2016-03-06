@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 	<meta http-equiv="x-ua-compatible" content="IE=7,9,10" >
-    <title>JeePlus</title>
+    <title>IVMS智能管理系统</title>
 
 	<%@ include file="/webpage/include/head.jsp"%>
 	<script src="${ctxStatic}/common/inspinia.js?v=3.2.0"></script>
 	<script src="${ctxStatic}/common/contabs.js"></script> 
-    <meta name="keywords" content="JeePlus快速开发平台">
-    <meta name="description" content="JeePlus，采用spring mvc+mybatis+shiro+bootstrap，集成代码生成器的快速开发平台">
+    <meta name="keywords" content="IVMS智能管理系统">
+    <meta name="description" content="IVMS智能管理系统 mvc+mybatis+shiro+bootstrap">
     <script type="text/javascript">
 	$(document).ready(function() {
 		 if('${fns:getDictLabel(cookie.theme.value,'theme','默认主题')}' == '天蓝主题'){

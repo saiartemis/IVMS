@@ -99,6 +99,7 @@ public class TravelOrderController extends BaseController {
 		//更新car对象数据
 		if(travelOrder.getStatus().equals(TravelOrder.STATUS_ON_ROAD))
 		{
+			//必须先保存，否则id不能自动生成，car对象无法保存travelOrder的id
 			travelOrderService.save(travelOrder);
 			Car car = carService.get(travelOrder.getCar().getId());
 			car.setTravelOrder(travelOrder);

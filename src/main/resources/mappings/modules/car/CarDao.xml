@@ -37,7 +37,8 @@
 		FROM car a
 		<include refid="carJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = ${user.id} 
+		
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = #{user.id} 
 			<if test="carNo != null and carNo != ''">
 				AND a.car_no LIKE 
 					<if test="dbName == 'oracle'">'%'||#{carNo}||'%'</if>
@@ -74,7 +75,7 @@
 		FROM car a
 		<include refid="carJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = ${user.id} 
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = '${user.id}' 
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
