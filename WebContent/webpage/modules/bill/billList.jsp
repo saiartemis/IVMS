@@ -84,10 +84,10 @@
 		<thead>
 			<tr>
 				<th> <input type="checkbox" class="i-checks"></th>
-				<th  class="sort-column remarks">备注信息</th>
+				
 				<th  class="sort-column pay">支出</th>
 				<th  class="sort-column income">收入</th>
-				<th  class="sort-column orderId">订单编号</th>
+				<th  class="sort-column remarks">备注信息</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -95,18 +95,17 @@
 		<c:forEach items="${page.list}" var="bill">
 			<tr>
 				<td> <input type="checkbox" id="${bill.id}" class="i-checks"></td>
-				<td><a  href="#" onclick="openDialogView('查看账单', '${ctx}/bill/bill/form?id=${bill.id}','800px', '500px')">
-					${bill.remarks}
-				</a></td>
+				
 				<td>
 					${bill.pay}
 				</td>
 				<td>
 					${bill.income}
 				</td>
-				<td>
-					${bill.orderId}
-				</td>
+				<td><a  href="#" onclick="openDialogView('查看账单', '${ctx}/bill/bill/form?id=${bill.id}','800px', '500px')">
+					${bill.remarks}
+				</a></td>
+			
 				<td>
 					<shiro:hasPermission name="bill:bill:view">
 						<a href="#" onclick="openDialogView('查看账单', '${ctx}/bill/bill/form?id=${bill.id}','800px', '500px')" class="btn btn-info btn-xs" ><i class="fa fa-search-plus"></i> 查看</a>

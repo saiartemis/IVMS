@@ -16,6 +16,7 @@
 	</sql>
 	
 	<sql id="billJoins">
+	LEFT JOIN travel_order b ON b.id = a.order_id 
 	</sql>
     
 	<select id="get" resultType="Bill">

@@ -157,6 +157,9 @@
     				<shiro:hasPermission name="travelorder:travelOrder:del">
 						<a href="${ctx}/travelorder/travelOrder/delete?id=${travelOrder.id}" onclick="return confirmx('确认要删除该旅行单吗？', this.href)"   class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> 删除</a>
 					</shiro:hasPermission>
+					<shiro:hasPermission name="bill:bill:add">
+    					<a href="#" onclick="openDialog('账单', '${ctx}/bill/bill/form?orderId=${travelOrder.id}','800px', '500px')" class="btn btn-success btn-xs" ><i class="fa fa-cny"></i>账单</a>
+    				</shiro:hasPermission>
 				</td>
 			</tr>
 		</c:forEach>

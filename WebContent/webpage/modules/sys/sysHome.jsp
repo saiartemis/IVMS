@@ -29,7 +29,7 @@
 
                 <div class="ibox float-e-margins">
                      <div class="ibox-title">
-                        <h5>JeePlus 技术特点</h5> 
+                        <h5>IVMS 技术特点</h5> 
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>

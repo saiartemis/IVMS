@@ -40,7 +40,7 @@
              <div class="col-sm-2">二维码内容</div>
 
              <div class="col-sm-8">
-             		<input type="text" id="encoderContent" title="输入内容" value="http://www.jeeplus.org" class="form-control">
+             		<input type="text" id="encoderContent" title="输入内容" value="www.baidu.com" class="form-control">
              		<span  class="help-inline">请输入要生成二维码的字符串</span>
              </div>
              <div class="col-sm-2">

@@ -58,7 +58,7 @@
 	<div class="wrapper wrapper-content">
 	<div class="ibox">
 	<div class="ibox-title">
-		<h5>表单列表  </h5>（欢迎使用代码生成器，最新版请访问<a target="_blank" href="http://www.jeeplus.org">http://www.jeeplus.org</a>)
+		<h5>表单列表  </h5>（欢迎使用，最新版请访问<a target="_blank" href="#">www.baidu.com</a>)
 		<div class="ibox-tools">
 			<a class="collapse-link">
 				<i class="fa fa-chevron-up"></i>
