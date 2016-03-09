@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.car.dao.CarDao">
+    
+	<sql id="carColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.car_no AS "carNo",
+		a.driver AS "driver",
+		a.driver_phone AS "driverPhone",
+		a.status AS "status",
+		a.user_id AS "user.id",
+	 	a.travel_order_id AS "travelOrder.id" <!-- 有多少字段写多少。不能少 -->
+	</sql>
+	
+	<sql id="carJoins">
+	LEFT JOIN sys_user b ON b.id = a.user_id 
+	</sql>
+    
+	<select id="get" resultType="Car">
+		SELECT 
+			<include refid="carColumns"/>
+		FROM car a
+		<include refid="carJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="findList" resultType="Car">
+		SELECT 
+			<include refid="carColumns"/>
+		FROM car a
+		<include refid="carJoins"/>
+		<where>
+		
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = #{user.id} 
+			<if test="carNo != null and carNo != ''">
+				AND a.car_no LIKE 
+					<if test="dbName == 'oracle'">'%'||#{carNo}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{carNo}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{carNo},'%')</if>
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!--后台传的是user对象，相当于把user的每个属性都传了进来-->
+	<select id="getFreeCarList" resultType="Car">
+	SELECT 
+			<include refid="carColumns"/>
+		FROM car a
+		<include refid="carJoins"/>
+	<where>
+	a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = #{id} and a.status = 0  
+	
+	</where>
+	</select>
+	<select id="findAllList" resultType="Car">
+		SELECT 
+			<include refid="carColumns"/>
+		FROM car a
+		<include refid="carJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL} and a.user_id = '${user.id}' 
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO car(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			car_no,
+			driver,
+			driver_phone,
+			status,
+			user_id,
+			travel_order_id
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{carNo},
+			#{driver},
+			#{driverPhone},
+			#{status},
+			#{user.id},
+			#{travelOrder.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE car SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			car_no = #{carNo},
+			driver = #{driver},
+			driver_phone = #{driverPhone},
+			status = #{status},
+			travel_order_id = #{travelOrder.id}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM car
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE car SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Car" statementType="STATEMENT">
+		select * FROM car  where ${propertyName} = '${value}'
+	</select>
+</mapper>

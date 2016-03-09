@@ -1,17 +1,1 @@
-/cache/
 /com/
-/editor.html
-/errors.properties
-/jeeplus.properties
-/log4j.properties
-/mappings/
-/mybatis-config.xml
-/mybatis-refresh.properties
-/org/
-/plugins.xml
-/spring-context-jedis.xml
-/spring-context-shiro.xml
-/spring-context.xml
-/spring-mvc.xml
-/stencilset.json
-/templates/
