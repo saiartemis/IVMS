@@ -88,6 +88,7 @@
 				<th  class="sort-column pay">支出</th>
 				<th  class="sort-column income">收入</th>
 				<th  class="sort-column remarks">备注信息</th>
+				<th  class="sort-column remarks">创建日期</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -105,7 +106,10 @@
 				<td><a  href="#" onclick="openDialogView('查看账单', '${ctx}/bill/bill/form?id=${bill.id}','800px', '500px')">
 					${bill.remarks}
 				</a></td>
-			
+			<td>
+					
+					<fmt:formatDate value="${bill.createDate}" pattern="yyyy年MM月dd日"/>
+				</td>
 				<td>
 					<shiro:hasPermission name="bill:bill:view">
 						<a href="#" onclick="openDialogView('查看账单', '${ctx}/bill/bill/form?id=${bill.id}','800px', '500px')" class="btn btn-info btn-xs" ><i class="fa fa-search-plus"></i> 查看</a>
