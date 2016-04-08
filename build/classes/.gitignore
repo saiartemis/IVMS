@@ -1,3 +1,9 @@
+/static/
+/test/
+/webpage/
+/act/
+/META-INF/
+/WEB-INF/
 /cache/
 /com/
 /org/
